@@ -2,10 +2,9 @@ include .env
 DOCKER_PHP = docker-compose exec -u www-data php
 
 ## --- Global ---
-install: build composer cc assets migrate
+install: build composer cc assets migrate ci
 
-env_local:
-	cp .env .env.local
+ci: process fix analyze
 
 # ## --- Build ---
 composer:
@@ -33,6 +32,16 @@ migration:
 
 migrate:
 	${DOCKER_PHP} php bin/console doctrine:migrations:migrate --no-interaction
+
+## --- Quality tools ---
+process:
+	${DOCKER_PHP} php vendor/bin/rector process
+
+fix:
+	${DOCKER_PHP} php vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix -vvv
+
+analyze:
+	${DOCKER_PHP} php vendor/bin/phpstan analyze
 
 # ## --- Docker ---
 bash:
