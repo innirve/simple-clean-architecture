@@ -1,11 +1,13 @@
 include .env
 DOCKER_PHP = docker-compose exec -u www-data php
 
-install: build composer cc assets
+## --- Global ---
+install: build composer cc assets migrate
 
 env_local:
 	cp .env .env.local
 
+# ## --- Build ---
 composer:
 ifeq ($(APP_ENV), 'prod')
 	export SYMFONY_ENV=prod; ${DOCKER_PHP} composer install --optimize-autoloader --no-interaction --no-dev
@@ -25,6 +27,14 @@ up:
 assets:
 	${DOCKER_PHP} php bin/console assets:install
 
+## --- DataBase ---
+migration:
+	${DOCKER_PHP} php bin/console make:migration
+
+migrate:
+	${DOCKER_PHP} php bin/console doctrine:migrations:migrate --no-interaction
+
+# ## --- Docker ---
 bash:
 	${DOCKER_PHP} bash
 
@@ -36,3 +46,6 @@ start:
 
 stop:
 	docker-compose --env-file .env stop
+
+rm:
+	docker-compose --env-file .env down
