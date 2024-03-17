@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
+use Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle;
 use Nelmio\ApiDocBundle\NelmioApiDocBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\MakerBundle\MakerBundle;
+use Symfony\Bundle\SecurityBundle\SecurityBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
 
@@ -18,4 +20,6 @@ return [
     WebProfilerBundle::class => ['dev' => true, 'test' => true],
     DoctrineBundle::class => ['all' => true],
     DoctrineMigrationsBundle::class => ['all' => true],
+    SecurityBundle::class => ['all' => true],
+    LexikJWTAuthenticationBundle::class => ['all' => true],
 ];

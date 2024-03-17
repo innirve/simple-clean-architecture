@@ -2,7 +2,7 @@ include .env
 DOCKER_PHP = docker-compose exec -u www-data php
 
 ## --- Global ---
-install: build composer cc assets migrate ci
+install: build composer cc keys assets migrate ci
 
 ci: process fix analyze
 
@@ -25,6 +25,9 @@ up:
 
 assets:
 	${DOCKER_PHP} php bin/console assets:install
+
+keys:
+	${DOCKER_PHP} php bin/console lexik:jwt:generate-keypair --skip-if-exists
 
 ## --- DataBase ---
 migration:

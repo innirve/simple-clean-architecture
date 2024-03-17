@@ -5,7 +5,7 @@ networks:
 services:
   php:
     build:
-      context: docker
+      context: docker/php
       dockerfile: Dockerfile
     container_name: simple-clean-architecture-php
     environment:
