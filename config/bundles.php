@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
+use JMS\SerializerBundle\JMSSerializerBundle;
 use Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle;
 use Nelmio\ApiDocBundle\NelmioApiDocBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
@@ -22,4 +23,5 @@ return [
     DoctrineMigrationsBundle::class => ['all' => true],
     SecurityBundle::class => ['all' => true],
     LexikJWTAuthenticationBundle::class => ['all' => true],
+    JMSSerializerBundle::class => ['all' => true],
 ];

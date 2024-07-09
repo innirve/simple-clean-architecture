@@ -2,8 +2,7 @@ nelmio_api_doc:
     documentation:
         info:
             title: Simple Clean Architecture
-            description: This application is designed to log the releases of Franco-Belgian comics, comics, manga, 
-                and steelbook Blu-rays.
+            description: This application is designed to manage cards game.
             version: 1.0.0
         components:
             securitySchemes:

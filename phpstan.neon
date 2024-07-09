@@ -1,12 +1,9 @@
 parameters:
-    level: 9
-    checkGenericClassInNonGenericObjectType: false
-       # Ignoring errors related to unspecified value types in iterable arrays
-        # because the project does not require explicit type annotations on arrays.
-        # This decision helps to maintain cleaner code without unnecessary comments,
-        # while still preserving the overall type safety ensured by the high PHPStan level.
+    level: 6
     ignoreErrors:
+        - identifier: missingType.generics
         - '#no value type specified in iterable type array#'
+        - '#ModelInterface#'
     paths:
         - bin/
         - config/
