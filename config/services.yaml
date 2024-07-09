@@ -1,18 +1,8 @@
-# This file is the entry point to configure your own services.
-# Files in the packages/ subdirectory configure your dependencies.
-
-# Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
-parameters:
-
 services:
-    # default configuration for services in *this* file
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        autowire: true
+        autoconfigure: true
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/'
         exclude:
@@ -20,6 +10,49 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+################################################# USE CASES ############################################################
     App\Event\EventSubscriber\MigrationEventSubscriber:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
+
+    App\Serializer\FormErrorsSerializer:
+
+    App\Event\EventListener\ExceptionListener:
+        arguments:
+            - '@jms_serializer'
+            - '@App\Serializer\FormErrorsSerializer'
+            - '@translator.default'
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+
+    App\Api\Model\ModelValidator:
+        arguments:
+            - '@form.factory'
+
+################################################# USE CASES ############################################################
+    App\UseCase\User\UserCreate:
+        arguments:
+            - '@app.repo.user'
+
+    App\UseCase\User\UserList:
+        arguments:
+            - '@app.repo.user'
+
+    App\UseCase\User\UserRead:
+        arguments:
+            - '@app.repo.user'
+
+########################################## REPOSITORY ALIASES ##########################################################
+    app.repo.user:
+        public: true
+        alias: 'App\Repository\UserRepository'
+
+when@test:
+    services:
+        _defaults:
+            autowire: true
+            autoconfigure: true
+            public: true
+
+        app.repo.user:
+            alias: 'App\Repository\Fake\UserRepository'

@@ -37,6 +37,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         ;
     }
 
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -49,7 +56,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    #[\Override]
     public function getPassword(): ?string
     {
         return $this->password;
@@ -62,7 +68,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    #[\Override]
     public function getRoles(): array
     {
         return $this->roles;
@@ -75,10 +80,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    #[\Override]
     public function eraseCredentials(): void {}
 
-    #[\Override]
     public function getUserIdentifier(): string
     {
         return $this->identifier ?? 'no_identifier';
