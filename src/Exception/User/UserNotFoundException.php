@@ -15,6 +15,7 @@ final class UserNotFoundException extends ApiException
         parent::__construct();
     }
 
+    #[\Override]
     protected function errorMessage(): string
     {
         return 'user.entity.not_found';

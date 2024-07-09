@@ -25,11 +25,13 @@ final class UserRepository implements UserRepositoryInterface
         $this->users->add($user3);
     }
 
+    #[\Override]
     public function list(int $page, int $limit): array
     {
         return $this->users->getValues();
     }
 
+    #[\Override]
     public function save(User $user): User
     {
         if (!$this->users->contains($user)) {
@@ -47,6 +49,7 @@ final class UserRepository implements UserRepositoryInterface
         return $user;
     }
 
+    #[\Override]
     public function findById(int $id): ?User
     {
         foreach ($this->users as $user) {
@@ -58,6 +61,7 @@ final class UserRepository implements UserRepositoryInterface
         return null;
     }
 
+    #[\Override]
     public function delete(User $user): void
     {
         if ($this->users->contains($user)) {

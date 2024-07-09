@@ -12,11 +12,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ModelType extends AbstractType
 {
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(['name' => 'model_type']);
     }
 
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         foreach (get_object_vars($options['data']) as $key => $value) {

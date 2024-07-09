@@ -6,6 +6,7 @@ namespace App\Api\Model;
 
 abstract class Model implements ModelInterface
 {
+    #[\Override]
     public function submittedData(): array
     {
         return get_object_vars($this);

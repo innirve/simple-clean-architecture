@@ -16,6 +16,7 @@ final class UserRepository extends ServiceEntityRepository implements UserReposi
         parent::__construct($registry, User::class);
     }
 
+    #[\Override]
     public function save(User $user): User
     {
         $this->getEntityManager()->persist($user);
@@ -24,17 +25,20 @@ final class UserRepository extends ServiceEntityRepository implements UserReposi
         return $user;
     }
 
+    #[\Override]
     public function findById(int $id): ?User
     {
         return $this->find($id);
     }
 
+    #[\Override]
     public function delete(User $user): void
     {
         $this->getEntityManager()->remove($user);
         $this->getEntityManager()->flush();
     }
 
+    #[\Override]
     public function list(int $page, int $limit): array
     {
         $query = $this->createQueryBuilder('u')

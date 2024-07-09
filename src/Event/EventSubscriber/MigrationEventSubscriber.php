@@ -9,6 +9,7 @@ use Doctrine\ORM\Tools\Event\GenerateSchemaEventArgs;
 
 final class MigrationEventSubscriber implements EventSubscriber
 {
+    #[\Override]
     public function getSubscribedEvents(): array
     {
         return ['postGenerateSchema'];

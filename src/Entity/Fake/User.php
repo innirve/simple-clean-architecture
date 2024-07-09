@@ -13,18 +13,22 @@ class User implements JWTUserInterface
         return 1;
     }
 
+    #[\Override]
     public function getRoles(): array
     {
         return [];
     }
 
+    #[\Override]
     public function eraseCredentials(): void {}
 
+    #[\Override]
     public function getUserIdentifier(): string
     {
         return 'user_test';
     }
 
+    #[\Override]
     public static function createFromPayload(mixed $username, array $payload): User
     {
         return new self();
